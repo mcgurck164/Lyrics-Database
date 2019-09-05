@@ -37,7 +37,7 @@ def get_albums(soup):
 
 def get_songs(albums):
     df = pd.DataFrame()
-    for idx, row in albums.iterrows():
+    for _, row in albums.iterrows():
         link = row["Link"]
         html = get_html(link)
         soup = bs4.BeautifulSoup(html, "lxml")
@@ -48,9 +48,9 @@ def get_songs(albums):
             link = song.get_attribute_list("href")[0]
             title = song.getText()
             series = pd.Series({"Title": title, 
-                                "Link": link,
+                                "Link":  link,
                                 "Album": row["Title"],
-                                "Year": row["Year"],
+                                "Year":  row["Year"],
                                 "Index": song_idx})
             df = df.append(series, ignore_index=True)
     return df
@@ -77,6 +77,5 @@ def crawl():
     songs["Lyrics"] = songs["Link"].apply(get_lyrics)
     songs.to_csv(os.getcwd()+"//songs.csv", index=False)
 
-    
 if __name__ == "__main__":
-    crawl()   
+    crawl()

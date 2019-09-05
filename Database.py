@@ -77,7 +77,7 @@ class Database():
                            col_year="year", col_song_title="song_title",
                            col_lyrics="lyrics", 
                            col_link_to_lyrics="link_to_lyrics"):
-        for idx, row in df.iterrows():
+        for _, row in df.iterrows():
             artist         = row[col_artist]
             record         = row[col_record]
             year           = row[col_year]
@@ -93,7 +93,6 @@ class Database():
                           lyrics=lyrics,
                           link_to_lyrics=link_to_lyrics)
             
-    
     def __del__(self):
         self.con.close()
         
